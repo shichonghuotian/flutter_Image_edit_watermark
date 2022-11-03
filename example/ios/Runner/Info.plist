@@ -47,5 +47,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+		<key>NSPhotoLibraryAddUsageDescription</key>
+    	<string>To send gallery picture via conversations demo</string>
+    	<key>NSPhotoLibraryUsageDescription</key>
+    	<string>The APP requires your consent to access the album, so as to facilitate the selection, uploading and publishing of pictures.</string>
 </dict>
 </plist>

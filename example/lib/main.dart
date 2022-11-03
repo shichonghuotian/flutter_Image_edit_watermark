@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -20,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _flutterImageEditWatermarkPlugin = FlutterImageEditWatermark();
 
+  String? imagePath;
   @override
   void initState() {
     super.initState();
@@ -56,11 +59,17 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: TextButton(
-            child: Text('camera'),
-            onPressed: () {
-              _onCameraPickerPressed();
-            },
+          child: Column(
+            children: [
+              TextButton(
+                child: Text('camera'),
+                onPressed: () {
+                  _onCameraPickerPressed();
+                },
+              ),
+
+              if(imagePath != null) Image.file(File(imagePath!))
+            ],
           ),
         ),
       ),
@@ -68,7 +77,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onCameraPickerPressed() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     String? path = image?.path;
     print("file: $path");
@@ -78,6 +88,11 @@ class _MyAppState extends State<MyApp> {
     var file = await _flutterImageEditWatermarkPlugin.editImage(path!, "test warter");
 
     print("file: $file");
+
+    setState(() {
+
+      imagePath = file;
+    });
 
   }
 
