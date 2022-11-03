@@ -85,7 +85,9 @@ class _MyAppState extends State<MyApp> {
 
     if(path == null) return;
 
-    var file = await _flutterImageEditWatermarkPlugin.editImage(path!, "test warter");
+    String text = "07:55 pm 11/03/2022\nTaken by Xiao 50\nCupertino CA";
+
+    var file = await _flutterImageEditWatermarkPlugin.editImage(path!, text);
 
     print("file: $file");
 

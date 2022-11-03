@@ -40,7 +40,7 @@ class FlutterImageEditWatermarkPlugin: FlutterPlugin, MethodCallHandler {
         context,
         filePath,
         text,
-        30,
+        40,
         0xffffff,)
 
       result.success(savePath);

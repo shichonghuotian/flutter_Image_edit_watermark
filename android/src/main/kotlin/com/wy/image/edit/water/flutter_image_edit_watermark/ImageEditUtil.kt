@@ -15,14 +15,13 @@ object ImageEditUtil {
         context: Context,
         filePath: String, text: String,
         size: Int, color: Int,
-        paddingLeft: Int = 0,
-        paddingBottom: Int = 0
+        paddingLeft: Int = 60,
+        paddingBottom: Int = 60
     ): String {
 
         val file = File(filePath)
         val uri = Uri.fromFile(file)
         val bitmap = BitmapUtil.getBitmapFromUri(context, uri)
-        Log.e("wy", "load bitmap : $bitmap");
 //        读取bitmap
         val resultBitmap =  WaterMaskUtil.drawTextToLeftBottom(
             context,
@@ -33,9 +32,6 @@ object ImageEditUtil {
             paddingLeft,
             paddingBottom
         )
-
-        Log.e("wy", "load end bitmap : $resultBitmap");
-
 
         val savePath = Utils.saveBitmap(resultBitmap, filePath)
 

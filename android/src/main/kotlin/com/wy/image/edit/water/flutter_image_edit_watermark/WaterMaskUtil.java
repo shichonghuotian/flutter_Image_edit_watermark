@@ -201,10 +201,12 @@ public class WaterMaskUtil {
 
         Log.e("wy", "load bitmap drawTextToLeftBottom:" + bounds);
 
+        int left = Utils.dip2px(context, paddingLeft);
+        int bottom = Utils.dip2px(context, paddingBottom);
 
         return drawTextToBitmap(bitmap, text, paint, bounds,
-                paddingLeft,
-                bitmap.getHeight() - paddingBottom);
+                left,
+                bitmap.getHeight() - bottom);
     }
 
     /**
@@ -232,7 +234,7 @@ public class WaterMaskUtil {
 
     //图片上绘制文字
     private static Bitmap drawTextToBitmap( Bitmap bitmap, String text,
-                                           Paint paint, Rect bounds, int paddingLeft, int paddingTop) {
+                                           Paint paint, Rect bounds, int x, int y) {
         Bitmap.Config bitmapConfig = bitmap.getConfig();
 
         paint.setDither(true); // 获取跟清晰的图像采样
@@ -240,18 +242,13 @@ public class WaterMaskUtil {
         if (bitmapConfig == null) {
             bitmapConfig = Bitmap.Config.ARGB_8888;
         }
-        bitmap = bitmap.copy(bitmapConfig, true);
-        Canvas canvas = new Canvas(bitmap);
+        Bitmap tempBitmap = bitmap.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(tempBitmap);
 
-        canvas.drawText(text, 50, 50, paint);
-//        drawMultiLineText(text, paddingLeft, paddingTop, paint,canvas);
+//        canvas.drawText(text, paddingLeft, 50, paint);
+        drawMultiLineText(text, x, y, paint,canvas);
 
-
-        //默认在 Bitmap的 右下角位置开始绘制文字
-
-        Log.e("wy", "load bitmap drawTextToLeftBottom:" + text + ' ' + bitmap);
-
-        return bitmap;
+        return tempBitmap;
     }
 
     private static void drawMultiLineText(String str, float x, float y, Paint paint,
@@ -264,8 +261,8 @@ public class WaterMaskUtil {
             txtSize += paint.getStrokeWidth(); // add stroke width to the text
         }
         float lineSpace = txtSize * 0.1f; // default line spacing
-        for (int i = 0; i < lines.length; ++i) {
-            canvas.drawText(lines[i], x, y + (txtSize + lineSpace) * i, paint);
+        for (int i = lines.length - 1; i >= 0; --i) {
+            canvas.drawText(lines[i], x, y - (txtSize + lineSpace) * (lines.length - i -1 ), paint);
         }
     }
 

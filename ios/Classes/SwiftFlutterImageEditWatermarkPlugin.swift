@@ -60,7 +60,7 @@ extension UIImage{
     }
      
     //添加水印方法
-    func waterMarkedImage(waterMarkText:String, corner:WaterMarkCorner = .BottomRight,
+    func waterMarkedImage(waterMarkText:String, corner:WaterMarkCorner = .BottomLeft,
         margin:CGPoint = CGPoint(x: 20, y: 20), waterMarkTextColor:UIColor = UIColor.white,
                           waterMarkTextFont:UIFont = UIFont.systemFont(ofSize: 20),
         backgroundColor:UIColor = UIColor.clear) -> UIImage? {
