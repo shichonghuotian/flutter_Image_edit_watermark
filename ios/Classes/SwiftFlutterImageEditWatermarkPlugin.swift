@@ -68,7 +68,7 @@ extension UIImage{
         let textAttributes = [NSAttributedString.Key.foregroundColor:waterMarkTextColor,
                               NSAttributedString.Key.font:waterMarkTextFont]
         let textSize = NSString(string: waterMarkText).size(withAttributes: textAttributes)
-        var textFrame = CGRectMake(0, 0, textSize.width, textSize.height)
+        var textFrame = CGRect(x: 0, y: 0, width: textSize.width, height: textSize.height)
          
         let imageSize = self.size
         switch corner{
@@ -85,7 +85,7 @@ extension UIImage{
          
         // 开始给图片添加文字水印
         UIGraphicsBeginImageContext(imageSize)
-        self.draw(in: CGRectMake(0, 0, imageSize.width, imageSize.height))
+        self.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
         NSString(string: waterMarkText).draw(in: textFrame, withAttributes: textAttributes)
          
         let waterMarkedImage = UIGraphicsGetImageFromCurrentImageContext()
