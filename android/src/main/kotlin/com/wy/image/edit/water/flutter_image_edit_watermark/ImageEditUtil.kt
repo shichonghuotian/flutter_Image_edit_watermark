@@ -13,24 +13,32 @@ object ImageEditUtil {
 
     fun createTextWaterMaskBottomLeft(
         context: Context,
-        filePath: String, text: String,
+        filePath: String,
+        text: String,
         size: Int, color: Int,
-        paddingLeft: Int = 60,
-        paddingBottom: Int = 60
     ): String {
+
+
 
         val file = File(filePath)
         val uri = Uri.fromFile(file)
         val bitmap = BitmapUtil.getBitmapFromUri(context, uri)
 //        读取bitmap
+
+        val width = bitmap.width
+        val fontSize = width * 12 / 375
+        val margin = width * 12  / 375
+
+
         val resultBitmap =  WaterMaskUtil.drawTextToLeftBottom(
             context,
             bitmap,
             text,
-            size,
+            fontSize,
             color,
-            paddingLeft,
-            paddingBottom
+            margin,
+            margin
+
         )
 
         val savePath = Utils.saveBitmap(resultBitmap, filePath)

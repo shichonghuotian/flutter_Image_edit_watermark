@@ -195,14 +195,14 @@ public class WaterMaskUtil {
                                               int size, int color, int paddingLeft, int paddingBottom) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.WHITE);
-        paint.setTextSize(Utils.dip2px(context, size));
+        paint.setTextSize(size);
         Rect bounds = new Rect();
         paint.getTextBounds(text, 0, text.length(), bounds);
 
         Log.e("wy", "load bitmap drawTextToLeftBottom:" + bounds);
 
-        int left = Utils.dip2px(context, paddingLeft);
-        int bottom = Utils.dip2px(context, paddingBottom);
+        int left = paddingLeft;
+        int bottom = paddingBottom;
 
         return drawTextToBitmap(bitmap, text, paint, bounds,
                 left,

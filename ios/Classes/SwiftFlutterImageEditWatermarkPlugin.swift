@@ -37,9 +37,24 @@ public class SwiftFlutterImageEditWatermarkPlugin: NSObject, FlutterPlugin {
 
     func editImage(filePath: String , text: String , size: Int ) -> String{
         
-        let image = UIImage(contentsOfFile: filePath);
-        let resultImage = image?.waterMarkedImage(waterMarkText: text);
-        try? resultImage?.jpegData(compressionQuality: 1)?.write(to: URL(fileURLWithPath: filePath))
+        if let image = UIImage(contentsOfFile: filePath) {
+            
+//        w375: font 12
+            
+            let width = image.size.width
+            
+            let fontSize = width * 12 / 375
+            
+            let margin = width * 12  / 375
+            
+            let resultImage = image.waterMarkedImage(waterMarkText: text,
+                                                     margin: CGPoint(x: margin, y: margin),
+                                                     waterMarkTextFont: UIFont.systemFont(ofSize: fontSize));
+            
+            
+            try? resultImage?.jpegData(compressionQuality: 1)?.write(to: URL(fileURLWithPath: filePath))
+            
+        }
         
         return filePath
     }
