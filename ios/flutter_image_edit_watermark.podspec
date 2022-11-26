@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_image_edit_watermark'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'add watermark'
   s.description      = <<-DESC
 add watermark

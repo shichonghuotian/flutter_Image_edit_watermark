@@ -24,6 +24,8 @@ public class BitmapUtil {
         InputStream optionStream = null;
         ExifInterface exifInterface = null;
         Bitmap scaledBitmap = null;
+        int orientation = 0;
+
         try {
             optionStream = context.getContentResolver().openInputStream(imageUri);
             BitmapFactory.Options options = getImageDimensions(optionStream);
@@ -32,9 +34,15 @@ public class BitmapUtil {
                 exifInterfaceStream = context.getContentResolver().openInputStream(imageUri);
                 exifInterface = new ExifInterface(exifInterfaceStream);
                 exifInterfaceStream.close();
+
+                orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
             }
             inputStream = context.getContentResolver().openInputStream(imageUri);
             scaledBitmap = decodeSampledBitmapFromStream(inputStream, options);
+
+            scaledBitmap = ExifUtil.rotateBitmap(orientation, scaledBitmap);
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
